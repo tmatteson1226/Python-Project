@@ -46,5 +46,21 @@ class MyApp:
        	self.myContainer1 = Frame(parent)
        	self.myContainer1.pack()
        	drawpad.pack(side=RIGHT)
+        self.animate()
+
+
+    def animate(self):
+        global player
+        global drawpad
+        
+        x1,y1,x2,y2 = drawpad.coords(player)
+        
+        if x1 == 35 and y1 == 35 and x2 == 65 and y2 == 65 and raw_input() == n:
+            drawpad.move(player,100,0)
+        drawpad.after(1,animate())
+
+
+
+
 app = MyApp(root)
 root.mainloop()
