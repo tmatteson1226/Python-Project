@@ -1,3 +1,5 @@
+
+
 from Tkinter import *
 root = Tk()
 
@@ -39,6 +41,12 @@ sq34 = drawpad.create_rectangle(100,600,200,700)
 sq35 = drawpad.create_rectangle(0,600,100,700)
 player = drawpad.create_oval(35,35,65,65, fill="red")
 
+u = 'Otters sleep while holding hands.'
+v = 'Russia considers beer as a soft drink.'
+
+
+qList = [u,v]
+
 class MyApp:
     def __init__(self,parent):
         global drawpad
@@ -46,15 +54,36 @@ class MyApp:
        	self.myContainer1 = Frame(parent)
        	self.myContainer1.pack()
        	drawpad.pack(side=RIGHT)
+
+        self.label1 = Label(root, text = 'Question 21: ' + qList[0], width=len(qList[0]),bg = 'white')
+        self.label1.pack()
+        self.animate()
+
+    def moveRight(self, event):   
+        global player
+        drawpad.move(player,100,0)
        
+    def moveLeft(self, event):   
+        global player
+        drawpad.move(player,-100,0)  
+    
+    def key(self, event):
+        if event.char == 't':
+            return True
+        elif event.char == 'f':
+            return False
+    
     def animate(self):
         global player
         global drawpad
-        
+        global moveRight
+        global moveLeft
+        self.key
         x1,y1,x2,y2 = drawpad.coords(player)
-        if x1 == 35 and y1 == 35 and x2 == 35 and y2 == 35 and raw_input() == f:
-            drawpad.move(player,100,0)
-        drawpad.after(1,animate())
+        
+        if x1 == 35 and y1 == 35 and x2 == 65 and y2 == 65 and self.key == True:
+            moveRight()
+        drawpad.after(1,self.animate)
 
 
 
