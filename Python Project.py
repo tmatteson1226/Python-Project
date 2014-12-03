@@ -40,12 +40,12 @@ sq33 = drawpad.create_rectangle(200,600,300,700)
 sq34 = drawpad.create_rectangle(100,600,200,700)
 sq35 = drawpad.create_rectangle(0,600,100,700)
 player = drawpad.create_oval(35,35,65,65, fill="red")
-
+move = 2
 u = 'Otters sleep while holding hands.'
 v = 'Russia considers beer as a soft drink.'
+w = 'question 3 here'
 
-
-qList = [u,v]
+qList = [u,v,w]
 
 class MyApp:
     def __init__(self,parent):
@@ -57,34 +57,49 @@ class MyApp:
 
         self.label1 = Label(root, text = 'Question 21: ' + qList[0], width=len(qList[0]),bg = 'white')
         self.label1.pack()
+        root.bind_all('<Key>', self.key)
+        
         self.animate()
 
-    def moveRight(self, event):   
+    def moveRight(self):   
         global player
+        print "hello"
         drawpad.move(player,100,0)
        
-    def moveLeft(self, event):   
+    def moveLeft(self):   
         global player
         drawpad.move(player,-100,0)  
     
-    def key(self, event):
-        if event.char == 't':
-            return True
-        elif event.char == 'f':
-            return False
+    def key(self,event):
+        global move
+        if event.char == "t" or event.char == 'T':
+            move = 1
+        if event.char == "f" or event.char == 'F':
+            move = 0
+    
     
     def animate(self):
         global player
         global drawpad
         global moveRight
         global moveLeft
-        self.key
+        global move
         x1,y1,x2,y2 = drawpad.coords(player)
-        
-        if x1 == 35 and y1 == 35 and x2 == 65 and y2 == 65 and self.key == True:
-            moveRight()
+        print move
+        if x1 == 35 and y1 == 35 and x2 == 65 and y2 == 65 and move == 1:
+            self.moveRight()
+            self.label1.configure(text= 'Question 22:' + qList[1], width=len(qList[1]))
+            move = 0
+        if x1 == 135 and y1 == 35 and x2 == 165 and y2 == 65 and move == 1:
+            self.moveRight()
+            self.label1.configure(text= 'Question 23:' + qList[2], width=len(qList[2]))
         drawpad.after(1,self.animate)
-
+    def correct(self):
+        answer = 'T'
+        if answer == 't' or 'T':
+            return True
+        else:
+            return False
 
 
 
